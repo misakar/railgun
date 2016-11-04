@@ -37,7 +37,7 @@ setup(
     license='MIT',
     author='neo1218',
     author_email='neo1218@yeah.net',
-    description='static site generator, simple yet powerful',
+    description='py static site generator, simple and fast',
     long_description=__doc__,
     zip_safe=False,
     include_package_data=True,
@@ -46,7 +46,6 @@ setup(
         'click',
         'Flask',
         'Flask-Flatpages',
-        'pychalk'
     ],
     entry_points=entry_points,
     classifiers=[

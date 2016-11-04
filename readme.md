@@ -6,6 +6,12 @@
 
     $ pip install railgun-cli
 
+or install from source
+
+    $ git clone https://github.com/neo1218/railgun
+    $ cd railgun
+    $ pip install --editable .
+
 ## Config
 you can modify site settings in [config.py](https://github.com/neo1218/railgun/blob/master/site/config.py)
 
@@ -144,5 +150,7 @@ MIT, check [LICENSE](https://github.com/neo1218/railgun/blob/master/LICENSE) for
 ![railgun](https://cloud.githubusercontent.com/assets/10671733/20017054/f80f9706-a2fc-11e6-9a56-72e7b73c5320.png)
 
 ## Change Logs
++ **V0.1.1**
+    - To Aru Kagaku no **Railgun**
 + **V0.1.1-dev**
     - check deployment on github
