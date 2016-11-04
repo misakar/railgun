@@ -1,11 +1,9 @@
 # coding: utf-8
 """
-    ship::site::paginate.py
+    paginate.py
+    ```````````
 
     posts resources pagination
-
-    :License :: MIT
-    :Copyright @neo1218 2016
 """
 
 from collections import MutableSequence

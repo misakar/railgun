@@ -3,10 +3,7 @@
     config.py
     `````````
 
-    ship-site user config
-
-    :License :: MIT
-    :Copyright @neo1218 2016
+    railgun-site user config
 """
 
 
@@ -18,17 +15,17 @@ class Config(object):
 
 class ExampleConfig(Config):
     # [site setting]
-    SITE_NAME = "shipsite"
+    SITE_NAME = "railgun site"
     SITE_URL = "https://neo1218.github.io"
-    SITE_DESC = "a ship site"
+    SITE_DESC = "a railgun site"
     SITE_OWNER = "neo1218"
-    SITE_KEYWORDS = "ship neo1218"
+    SITE_KEYWORDS = "railgun neo1218"
 
     # [article setting]
     ARTICLE_Type = FLATPAGES_EXTENSION = '.md'  # default is .md
     ARTICLE_PER_PAGE = 10
 
-    # [owner info] 
+    # [owner info]
     GITHUB_URL = "https://github.com/neo1218"
     WEIBO_URL = "http://www.weibo.com/5551886705/profile"
     TWITTER_URl = "https://twitter.com/neo1218substack"

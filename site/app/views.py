@@ -1,12 +1,9 @@
 # coding: utf-8
 """
-    ship::site::views.py
-    ````````````````````
+    views.py
+    ````````
 
-    ship-site routes API
-
-    :License :: MIT
-    :Copyright @neo1218 2016
+    railgun-site routes API
 """
 
 from . import app

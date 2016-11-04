@@ -1,4 +1,13 @@
 # encoding: utf-8
+"""
+    railgun~setup
+    `````````````
+
+    > py static site generator
+
+    :License: MIT
+    :Copyright: @neo1218
+"""
 
 import re
 import ast
