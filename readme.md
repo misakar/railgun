@@ -43,6 +43,7 @@ Setting | Description
 `GIT_URL`: github repo url
 `BRANCH`: github repo branch, eg: master or gh-pages
 
+
 > do not forget switch from ExampleConfig to MyConfig
 
 ```
@@ -57,16 +58,84 @@ railgun provided [railgun-commandline-tools](https://github.com/neo1218/railgun/
 ![railgun-cli](http://7xj431.com1.z0.glb.clouddn.com/屏幕快照 2016-11-05 上午12.45.34.png)
 
 ### ⚡️ railgun init
+> generate a railgun site
+
+```
+$ railgun init railgun-site
+```
+
+railgun site structure:
+
+    railgun-site -  - gen/ -> [railgun static files generator]
+                    - config.py -> [railgun site configuration]
+                    - requirement.txt -> [flask extensions]
+                    app/ - pages/ -> [your articles]
+                         - themes/ -> [railgun site theme]
+
+then, you need to install flask extensions
+
+    $ pip install -r requirement.txt
 
 ### ⚡️ railgun new
+> crate a new post
+
+```
+$ railgun new filename
+```
+
+this command created **filename.md**(file extension name depends on ARTICLE_TYPE config) under **railgun-site/app/pages** folder with default article template:
+
+```
+title:
+date: %Y-%m-%d %H:%M:%S
+tags: ['tag1', 'tag2']
+```
 
 ### ⚡️ railgun server
+> start local preview server
+
+```
+$ railgun server
+```
+
+this command start preview server on http://localhost:5050/
 
 ### ⚡️ railgun upgrade
+> upgrade the site's theme
+
+eg:
+
+```
+$ cd {site}
+$ git clone https://github.com/neo1218/ship-theme-cat.git app/themes/cat
+$ railgun upgrade cat
+```
+
+Now you can use https://github.com/neo1218/ship-theme-cat theme.
 
 ### ⚡️ railgun build
+> freezes a railgun site info static files
 
-### ⚡️ railgun deploy
+```
+$ railgun build
+```
+
+this command build your site into static files to **railgun-site/app/build**
+
+### ⚡️ railgun upload
+> deploy railgun site
+
+after the [deployment setup](https://github.com/neo1218/railgun#️-deployment) is complete
+
+```
+$ railgun upload
+```
+
+will deploy your site to github pages:)
 
 ## License
 MIT, check [LICENSE](https://github.com/neo1218/railgun/blob/master/LICENSE) for detail.
+
+## Change Logs
++ **V0.1.1-dev**
+    - check deployment on github

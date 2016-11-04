@@ -93,7 +93,7 @@ def cli():
 @click.argument('site_name')
 def init(dev, site_name):
     """
-    ⚡️ generate railgun site
+    ⚡️ generate a railgun site
     """
     site = os.path.join(site_path, 'site')
     gen = os.path.join(gen_path, 'gen')
@@ -133,7 +133,7 @@ def init(dev, site_name):
 @run_in_root
 def server(port):
     """
-    ⚡️ local preview server
+    ⚡️ start local preview server
     """
     logger.info(log_symbol['info'] + \
         " \033[33m{Railgun => }\033[0m"
@@ -207,7 +207,7 @@ def upload():
 @run_in_root
 def upgrade(theme_name):
     """
-    ⚡️ upgrade site theme
+    ⚡️ upgrade the site's theme
     """
     root_path = os.getcwd()
     templates_target_path = os.path.join(root_path, 'app/templates')
