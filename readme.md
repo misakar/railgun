@@ -1,4 +1,5 @@
 # ⚡️ railgun
+[![PyPI](https://img.shields.io/pypi/v/nine.svg?style=plastic)](https://pypi.python.org/pypi/railgun-cli)
 
 > py static site generator, simple and fast⚡️
 
