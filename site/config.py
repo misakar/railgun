@@ -22,20 +22,20 @@ class ExampleConfig(Config):
     SITE_KEYWORDS = "railgun neo1218"
 
     # [article setting]
-    ARTICLE_Type = FLATPAGES_EXTENSION = '.md'  # default is .md
+    ARTICLE_TYPE = FLATPAGES_EXTENSION = '.md'  # default is .md
     ARTICLE_PER_PAGE = 10
 
     # [owner info]
     GITHUB_URL = "https://github.com/neo1218"
     WEIBO_URL = "http://www.weibo.com/5551886705/profile"
-    TWITTER_URl = "https://twitter.com/neo1218substack"
+    TWITTER_URL = "https://twitter.com/neo1218substack"
     QQ = "834597629"
     EMAIL = "neo1218@yeah.net"
 
     # [deploy on github/(git) pages]
     GIT_URL = "https://github.com/neo1218/ship"
     BRANCH = "gh-pages"
-    FREEZER_BASE_URL = SITE_URL
+    GEN_BASE_URL = SITE_URL
 
 
 class MyConfig(Config):
@@ -53,14 +53,14 @@ class MyConfig(Config):
     # [owner info]
     GITHUB_URL = ""
     WEIBO_URL = ""
-    TWITTER_URl = ""
+    TWITTER_URL = ""
     QQ = ""
     EMAIL = ""
 
     # [deploy on github/(git) pages]
     GIT_URL = ""
     BRANCH = ""
-    FREEZER_BASE_URL = SITE_URL
+    GEN_BASE_URL = SITE_URL
 
 
 config = {

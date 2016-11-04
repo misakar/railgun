@@ -126,8 +126,6 @@ def init(dev, site_name):
         os.popen('railgun upgrade cat')
 
     finish_init_info()
-    os.chdir(dst)
-    os.popen('railgun server')
 
 
 @click.command()

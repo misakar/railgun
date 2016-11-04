@@ -1,5 +1,6 @@
 **/*.pyc
+idea.md
 test/
 venv/
+dist/
 railgun_cli.egg-info/
-idea.md
