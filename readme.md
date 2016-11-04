@@ -1,6 +1,6 @@
 # ⚡️ railgun
 
-> py static site generator
+> py static site generator, simple and fast⚡️
 
 ## Install
 
@@ -40,8 +40,8 @@ Setting | Description
 
 Setting | Description
 --- | ---
-`GIT_URL`: github repo url
-`BRANCH`: github repo branch, eg: master or gh-pages
+`GIT_URL`| github repo url
+`BRANCH`| github repo branch, eg: master or gh-pages
 
 
 > do not forget switch from ExampleConfig to MyConfig
@@ -66,11 +66,13 @@ $ railgun init railgun-site
 
 railgun site structure:
 
-    railgun-site -  - gen/ -> [railgun static files generator]
-                    - config.py -> [railgun site configuration]
-                    - requirement.txt -> [flask extensions]
-                    app/ - pages/ -> [your articles]
-                         - themes/ -> [railgun site theme]
++ railgun-site
+    +  gen/ -> [railgun static files generator]
+    +  config.py -> [railgun site configuration]
+    +  requirement.txt -> [flask extensions]
+    + app/
+        +  pages/ -> [your articles]
+        +  themes/ -> [railgun site theme]
 
 then, you need to install flask extensions
 
@@ -98,7 +100,7 @@ tags: ['tag1', 'tag2']
 $ railgun server
 ```
 
-this command start preview server on http://localhost:5050/
+this command start preview server on [http://localhost:5050/](http://localhost:5050/)
 
 ### ⚡️ railgun upgrade
 > upgrade the site's theme
@@ -111,7 +113,7 @@ $ git clone https://github.com/neo1218/ship-theme-cat.git app/themes/cat
 $ railgun upgrade cat
 ```
 
-Now you can use https://github.com/neo1218/ship-theme-cat theme.
+now you can use https://github.com/neo1218/ship-theme-cat theme.
 
 ### ⚡️ railgun build
 > freezes a railgun site info static files
@@ -121,6 +123,9 @@ $ railgun build
 ```
 
 this command build your site into static files to **railgun-site/app/build**
+<br/>
+railgun use it own build tool -> [gen](https://github.com/neo1218/railgun/tree/master/gen) to build static files. gen is really fast, generate 42 files just need 1 second⚡️ <br/>
+![](http://7xj431.com1.z0.glb.clouddn.com/屏幕快照 2016-11-05 上午2.03.37.png)
 
 ### ⚡️ railgun upload
 > deploy railgun site
@@ -135,6 +140,8 @@ will deploy your site to github pages:)
 
 ## License
 MIT, check [LICENSE](https://github.com/neo1218/railgun/blob/master/LICENSE) for detail.
+
+![railgun](https://cloud.githubusercontent.com/assets/10671733/20017054/f80f9706-a2fc-11e6-9a56-72e7b73c5320.png)
 
 ## Change Logs
 + **V0.1.1-dev**

@@ -10,9 +10,10 @@
 """
 
 # built-in
+import os
+import time
 import platform
 import click
-import os
 import shutil
 import datetime
 from functools import wraps
@@ -167,9 +168,13 @@ def build():
     ⚡️ freezes a railgun site into static files
     """
     build_path = os.path.join(os.getcwd(), 'app/build')
+    start = time.time()
     os.popen('python manage.py build')
     logger.info(log_symbol['info'] + \
-        " static your site in \033[34m{path}\033[0m".format(path=build_path)
+        " static your site in \033[34m{path}\033[0m".format(path=build_path) + \
+        "\nspent \033[32m{stime}\033[0ms".format(
+            stime=str((time.time()-start))
+        )
     )
 
 
