@@ -1,0 +1,47 @@
+<html>
+    <head>
+
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link href=/railgun/static/css/main.css rel="stylesheet" type="text/css">
+        <title>⚡️ configuration</title>
+    </head>
+    <body>
+        <p><img alt="" src="https://images7.alphacoders.com/463/thumb-350-463864.jpg" /></p>
+<h1>railgun configuration</h1>
+<h2>Config</h2>
+<p>you can modify site settings in <a href="https://github.com/neo1218/railgun/blob/master/site/config.py">config.py</a></p>
+<h3>⚡️ Site</h3>
+<ul>
+<li><code>SITE_NAME</code> =&gt; the name of your website</li>
+<li><code>SITE_URL</code> =&gt; your website url, important for path build</li>
+<li><code>SITE_DESC</code> =&gt; your website description</li>
+<li><code>SITE_OWNER</code> =&gt; your name...</li>
+<li><code>SITE_KEYWORDS</code> =&gt; the keyword description of your site</li>
+</ul>
+<h3>⚡️ Article</h3>
+<ul>
+<li><code>ARTICLE_TYPE</code> =&gt; article type, default is markdown</li>
+<li><code>ARTICLE_PER_PAGE</code> =&gt; The amount of the posts displayed on a single page. 0 disables pagination</li>
+</ul>
+<h3>⚡️ Owner</h3>
+<ul>
+<li><code>GITHUB_URL</code> =&gt; your github account</li>
+<li><code>WEIBO_URL</code> =&gt; your weibo account</li>
+<li><code>TWITTER_URL</code> =&gt; your twitter account</li>
+<li><code>QQ</code> =&gt; your QQ account</li>
+<li><code>EMAIL</code> =&gt; your email</li>
+</ul>
+<h3>⚡️ Deployment</h3>
+<ul>
+<li><code>GIT_URL</code> =&gt; github repo url</li>
+<li><code>BRANCH</code> =&gt; github repo branch, eg: master or gh-pages</li>
+</ul>
+<blockquote>
+<p>do not forget switch from ExampleConfig to MyConfig</p>
+</blockquote>
+<pre><code>config = {
+    'default':  MyConfig
+}
+</code></pre>
+    </body>
+</html>

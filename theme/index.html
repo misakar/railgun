@@ -1,0 +1,170 @@
+<html>
+    <head>
+
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link href=/railgun/static/css/main.css rel="stylesheet" type="text/css">
+        <title>⚡️ Write a theme</title>
+    </head>
+    <body>
+        <p><img alt="" src="https://images3.alphacoders.com/683/thumb-350-683017.jpg" /></p>
+<h1>Write a theme</h1>
+<h2>1. 开始编写</h2>
+<p>railgun提供了development site用于主题编写</p>
+<pre><code>$ railgun init --dev devsite
+</code></pre>
+<p>会在当前路径下生成devsite, 并初始化空的主题目录结构</p>
+<pre><code>templates/ --&gt; index.html(default index)
+static/ --&gt; css/
+        --&gt; img/
+        --&gt; js/
+</code></pre>
+<p>templates存储html文件(jinja2模版), static则包含css, img, js:</p>
+<h2>2. 基础概念</h2>
+<h2>Jinja2模版</h2>
+<p>railgun主题使用Jinja2模版编写. Jinja2是一个简洁优雅的前端模版,</p>
+<pre><code>&lt;title&gt;{% block title %}{% endblock %}&lt;/title&gt;
+&lt;ul&gt;
+{% for user in users %}
+    &lt;li&gt;&lt;a href="{{ user.url }}"&gt;{{ user.username }}&lt;/a&gt;&lt;/li&gt;
+{% endfor %}
+&lt;/ul&gt;
+</code></pre>
+<p>更多关于jinja2, 参见<a href="http://jinja.pocoo.org/docs/dev/">Jinja2文档</a>.</p>
+<h2>路由</h2>
+<p>railgun默认定义了一些路由, 通过访问这些路由, 便可加载相应的html文件. 注意提供站内链接时,
+需要使用路由构造语法<code>url_for</code>, 这样railgun的gen就会帮你把所有的页面build成静态页面啦!</p>
+<pre><code>&lt;!-- 构造指向首页的路由 --&gt;
+&lt;a href={{ url_for('index') }} /a&gt;
+</code></pre>
+<p>对于静态资源url也需要使用路由构造语法, 避免相对路径混乱:</p>
+<pre><code>css
+    &lt;link rel="stylesheet" href={{ url_for('static', filename="css/filename.css") }} type="text/css"&gt;
+img
+    &lt;img src={{ url_for('static', filename='img/filename.png') }}&gt;
+js
+    &lt;script src={{ url_for('static', filename='js/filename.js') }} type="text/javascript"&gt;&lt;/script&gt;
+</code></pre>
+<p>注: <code>&lt;path:path&gt;</code>表示<code>type是path, 变量名是path</code>. 类同:<br/></p>
+<pre><code>route                    | templates    | url_for                                 | desc
+-------------------------|--------------|-----------------------------------------|-------------
+/                        | index.html   | url_for('index')                        | 首页
+/&lt;path:path&gt;/            | post.html    | url_for('post', path=post.path)         | 每个文章页面
+/archives/               | archives.html| url_for('archives')                     | 所有归档页面
+/archive/&lt;string:year&gt;/  | archive.html | url_for('archive', year=&lt;string:year&gt;)  | year归档对应的所有文章页面
+/tags/                   | tags.html    | url_for('tags')                         | 所有标签页面
+/tag/&lt;string:tag&gt;/       | tag.html     | url_for('tag', tag=&lt;string:tag&gt;)        | tag标签对应的所有文章页
+/about/                  | about.html   | url_for('about')                        | 关于页
+/static/&lt;filename&gt;/      | None         | url_for('static', filename=filename)    | 静态资源
+</code></pre>
+<h2>3. 数据获取</h2>
+<h3>获取用户配置</h3>
+<p>railgun通过<code>user_config_dict</code>字典使每个路由对应的页面都可以获取用户配置,
+可以获取的配置项如下:</p>
+<pre><code>'ARTICLE_PER_PAGE': 平均每页文章数
+'SITE_NAME': 站点名称
+'SITE_URL': 站点url
+'SITE_DESC': 站点描述
+'SITE_OWNER': 站点作者
+'SITE_KEYWORDS': 站点关键字
+'GITHUB_URL': github
+'WEIBO_URL': 微博
+'TWITTER_URL': twitter
+'QQ': QQ
+'EMAIL': Email
+</code></pre>
+<p>在Jinja中使用<code>{{ ConfigName }}</code>即可使用.</p>
+<h3>常用API</h3>
+<p>railgun通过<code>api_dict</code>字典提供了一些API, 如下:</p>
+<pre><code>'posts': 所有pages下文章列表
+'posts_sum': 文章的总数目
+'latests': 所有文章列表按最近生成时间排序
+'tags': 所有标签列表
+'archive': 所有归档列表
+</code></pre>
+<p>注意, 在不同的路由中, 有些api是不同的: <br/>
+<strong><code>/</code></strong>:</p>
+<pre><code>如果你开启了分页(ARTICLE_PER_PAGE != 0), 那么```latests```列表就是一个分页对象
+具有prev_num和next_num属性(具体见 其他场景::分页)
+</code></pre>
+<p><strong><code>/&lt;path:path&gt;/</code></strong></p>
+<pre><code>对于提供了文章具体路径的路由, 你可以直接用```post```表示该路径对应的文章
+</code></pre>
+<p><strong><code>/archive/&lt;string:year&gt;/</code></strong></p>
+<pre><code>归档页中的```posts```是根据year归档后的文章列表
+</code></pre>
+<p><strong><code>/tags/&lt;string:tag&gt;/</code></strong></p>
+<pre><code>标签页中的```posts```则是该标签tag的所有文章列表
+</code></pre>
+<p><br></p>
+<h3><strong>获取文章基本信息</strong></h3>
+<p>你可以在Jinja中遍历文章列表, 获取单个文章:</p>
+<pre><code>{% for post in latests %}
+{% endfor %}
+</code></pre>
+<p>文章的信息存储在文章的<strong>meta属性</strong>中:</p>
+<pre><code>{% for p in latests %}
+    标题: {{ p.meta['title'] }}
+    日期: {{ p.meta['date'] }}
+    标签列表: {{ p.meta['tags'] }}
+{% endfor %}
+</code></pre>
+<p><code>{{ p.html | safe }}</code> 可以自动生成文章的html格式, 用于页面渲染.</p>
+<h2>4. 代码示例</h2>
+<h3>1. 在主页显示所有标签, 每个标签链接到该标签对应所有文章的页面</h3>
+<p><code>index.html</code>:</p>
+<pre><code>&lt;div id='show-tags'&gt;
+    {% for tag in tags %}
+        &lt;li&gt;&lt;a href={{ url_for('tag', tag=tag) }}&gt;{{ tag }}&lt;/a&gt;&lt;/li&gt;
+    {% endfor %}
+&lt;/div&gt;
+</code></pre>
+<h3>2. 在主页显示所有归档, 每个归档链接到该归档对应所有文章的页面</h3>
+<p><code>index.html</code>:</p>
+<pre><code>&lt;div id='show-archives'&gt;
+    {% for archive in archives %}
+        &lt;li&gt;&lt;a href={{ url_for('archive', archive=archive) }}&gt;{{ archive }}&lt;/a&gt;&lt;/li&gt;
+    {% endfor %}
+&lt;/div&gt;
+</code></pre>
+<h2>5. 其他场景</h2>
+<h3><strong>分页</strong></h3>
+<p>每页的页数通过ARTICLE_PER_PAGE设置, 如果ARTICLE_PER_PAGE=0, 表示禁止分页. <br/>
+latests列表有<code>prev_num</code>和<code>next_num</code>属性, 可以使用如下方法进行分页</p>
+<pre><code>{% if latests.next_num %}
+    &lt;!-- 如果还有下一页 --&gt;
+    &lt;a href={{ url_for('index', page=latests.next_num) }}&gt;
+        &lt;!-- icons --&gt;
+    &lt;/a&gt;
+{% endif %}
+
+{% if latests.prev_num %}
+    &lt;!-- 如果还有上一页 --&gt;
+    &lt;a href={{ url_for('index', page=latests.prev_num) }}&gt;
+        &lt;!-- icons --&gt;
+    &lt;/a&gt;
+{% endif %}
+</code></pre>
+<h3><strong>模版继承</strong></h3>
+<p>模版继承是Jinja2的一个有用的特性, 可以增强代码复用, 例如: <br/>
+<code>base.html</code> <br/></p>
+<pre><code>&lt;html&gt;    
+    &lt;head&gt; &lt;!-- head --&gt; &lt;head&gt;
+    &lt;body&gt;
+        &lt;div id="show-posts"&gt;
+            {% block posts %}
+            &lt;!-- 其他页面重写部分 --&gt;
+            {% endblock %}
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><code>index.html</code><br/></p>
+<pre><code>{% block posts %}
+    {% for post in latests %}
+        &lt;div id='post-detail'&gt;{{ post.meta['title'] }}&lt;/div&gt;
+    {% endfor %}
+{% endblock %}
+</code></pre>
+<p>这样可以避免重复编写页面框架代码, 简洁、优雅!</p>
+    </body>
+</html>
