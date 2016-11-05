@@ -1,7 +1,10 @@
 # ⚡️ railgun
 [![PyPI](https://img.shields.io/pypi/v/nine.svg?style=plastic)](https://pypi.python.org/pypi/railgun-cli)
+[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://neo1218.github.io/railgun/)
 
 > py static site generator, simple and fast⚡️
+
++ [railgun website](https://neo1218.github.io/railgun/)
 
 ## Install
 
