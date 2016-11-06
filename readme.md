@@ -154,6 +154,9 @@ MIT, check [LICENSE](https://github.com/neo1218/railgun/blob/master/LICENSE) for
 ![railgun](https://cloud.githubusercontent.com/assets/10671733/20017054/f80f9706-a2fc-11e6-9a56-72e7b73c5320.png)
 
 ## Change Logs
++ **V0.1.2**
+    - 修改默认的hello.md
+    - 修改默认主题
 + **V0.1.1**
     - To Aru Kagaku no **Railgun**
 + **V0.1.1-dev**
