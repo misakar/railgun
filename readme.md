@@ -4,7 +4,7 @@
 
 > py static site generator, simple and fast⚡️
 
-+ [railgun website](https://neo1218.github.io/railgun/)
++ [railgun website](https://neo1218.github.io/railgun/) ⚡️  [demo:my_blog](https://neo1218.github.io/)
 
 ## Install
 

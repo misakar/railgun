@@ -124,7 +124,6 @@ class Gen(object):
                     url = parsed_url.path
                     if not isinstance(url, unicode):
                         url = url.decode(url_encoding)
-                    print "yield url, endpoint"
                     yield url, endpoint
 
     def _build_file(self, url):
