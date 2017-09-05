@@ -3,32 +3,53 @@ date: 2016-11-06 15:44:37
 tags: ['railgun', 'use']
 
 ![](https://images5.alphacoders.com/733/thumb-350-733587.jpg)
+
 # How to Use
-## Step0: initial railgun site
 
-    $ railgun init site
+## Step1: Initialize a blog
 
-## Step1: config railgun site
-see [railgun configuration](https://github.com/neo1218/railgun#config)
+    $ railgun init blog
 
-## Step2: create a new post
+## Step2: Config
 
-    $ railgun new hello
+    $ cd blog
+    $ vim config.py
 
-this command will create a hello.md file under **site/app/pages/**
+don't forget to change **default config class**
 
-## Step3: Writing....
-![](http://7xj431.com1.z0.glb.clouddn.com/tt.gif)
+    config = {
+        'default': MyConfig
+    }
+
+## Step3: Writing
+
+    $ cd blog
+    $ railgun new newblog
+
+then
+
+    $ vim app/pages/newblog.md
+
+the default article template show below:
+
+    title:
+    date: %Y-%m-%d %H:%M:%S
+    tags: ['tag1', 'tag2']
+
+the default format for the blog is ``markdown``, you can change it in the config.py file
+
+    class Config(object):
+        # ......
+        FLATPAGES_EXTENSION = '.md'
 
 ## Step4: Preview
 
     $ railgun server
 
-now, you can preview your site on [http://localhost:5050/](http://localhost:5050/)
+## Step5: Build and Deploy
 
-## Step5: Build and Deploy your railgun site to github pages
+    $ railgun build
+    $ railgun upload
 
-    $ railgun build && railgun upload
-
-<hr>
-check more detail on [railgun-commandline-tool](https://github.com/neo1218/railgun#usage)
+done! <br/>
+enjoy writing :)

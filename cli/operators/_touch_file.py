@@ -6,7 +6,7 @@
     create file and init with template code
 
     :License :: MIT
-    :Copyright @neo1218 2016
+    :Copyright @neo1218 2016 @oaoouo
 """
 
 

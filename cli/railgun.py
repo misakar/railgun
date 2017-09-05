@@ -6,7 +6,7 @@
     railgun commandline tool
 
     :License: MIT
-    :Copyright: @neo1218
+    :Copyright: @neo1218 @oaoouo
 """
 
 # built-in
@@ -121,9 +121,10 @@ def init(dev, site_name):
 
     if not dev:
         themes_path = os.path.join(dst, 'app/themes')
+        app_path = os.path.join(dst, 'app/')
         os.chdir(dst)
         # default theme: https://github.com/neo1218/ship-theme-cat
-        os.popen('git clone https://github.com/neo1218/ship-theme-cat.git app/themes/cat')
+        os.popen('git clone https://github.com/oaoouo/railgun-theme-cat.git app/themes/cat')
         os.popen('railgun upgrade cat')
 
     finish_init_info()

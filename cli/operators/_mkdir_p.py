@@ -6,7 +6,7 @@
     act as mkdir function, ignore path exist
 
     :License :: MIT
-    :Copyright @neo1218 2016
+    :Copyright @neo1218 2016 @oaoouo
 """
 
 import os, errno

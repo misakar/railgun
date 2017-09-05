@@ -6,7 +6,7 @@
     static files generator for railgun
 
     :License: MIT
-    :Copyright: @neo1218
+    :Copyright: @neo1218; @oaoouo
 """
 
 import os
@@ -33,13 +33,13 @@ class Gen(object):
     static files generator class
     """
     def __init__(self, app=None):
-        self.url_gens = []
+        self.gen_funcs= []
         self.init_app(app)
 
     def init_app(self, app):
         self.app = app
-        if app:
-            self.url_fors = UrlForGen(app)  # all url_for ?
+        if self.app:
+            self.url_fors = UrlForGen(app)
             app.config.setdefault('GEN_OUT_DEST', 'build')
             app.config.setdefault('GEN_BASE_URL', None)
 
@@ -63,17 +63,29 @@ class Gen(object):
         generator static files
         """
         if os.path.isdir(self.root_path):
-            shutil.rmtree(self.root_path) # 简单粗暴⚡️
+            shutil.rmtree(self.root_path)
         os.makedirs(self.root_path)
+
         built_urls = set()
         built_endpoints = set()
+
         for url, endpoint in self._gen_all_urls():
             built_endpoints.add(endpoint)
             if url in built_urls:
                 continue
             built_urls.add(url)
-            filename = self._build_file(url)
-        return built_urls
+
+            destination_path = self.urlpath_to_filepath(url)
+            filename = os.path.join(self.root_path, *destination_path.split('/'))
+            dirname = os.path.dirname(filename)
+            static_data = ""
+            if not os.path.isdir(dirname):
+                os.makedirs(dirname)
+            for resp in self.wsgi_resquest(url):
+                static_data += resp.data
+            # write response to static files
+            with open(filename, 'wb') as fd:
+                fd.write(static_data)
 
     def has_no_empty_params(self, rule):
         defaults = rule.defaults if rule.defaults is not None else ()
@@ -86,30 +98,32 @@ class Gen(object):
         """
         base_url_path = self._base_url_path()
         url_encoding = self.app.url_map.charset  # 'utf-8'
-        url_gens = list(self.url_gens)
+        gen_funcs = self.gen_funcs
         # add iter_rules function
-        url_gens += [self.app.url_map.iter_rules]
+        gen_funcs += [self.app.url_map.iter_rules]
         # add iter_calls function
-        url_gens += [self.url_fors.iter_calls]
+        gen_funcs += [self.url_fors.iter_calls]
         with self.app.test_request_context(base_url=base_url_path or None):
-            for gen in url_gens:
-                print url_gens
-                for gend in gen():
-                    if isinstance(gend, werkzeug.routing.Rule):
-                        if self.has_no_empty_params(gend):
-                            url = gend.rule
-                            endpoint = gend.endpoint
-                            values = gend.defaults or {}
-                        else: continue
-                    elif isinstance(gend, basestring):
-                        url = gend
+            # flask request context
+            for func in gen_funcs:
+                for _rule in func():
+                    if isinstance(_rule, werkzeug.routing.Rule):
+                        # iter_rules
+                        if self.has_no_empty_params(_rule):
+                            url = _rule.rule
+                            endpoint = _rule.endpoint
+                            values = _rule.defaults or {}
+                    elif isinstance(_rule, basestring):
+                        # iter_rules
+                        url = _rule
                         endpoint = None
+                    elif isinstance(_rule, collections.Mapping):
+                        # iter_rules
+                        values = _rule
+                        endpoint = gen.__name__
                     else:
-                        if isinstance(gend, collections.Mapping):
-                            values = gend
-                            endpoint = gen.__name__
-                        else:
-                            endpoint, values = gend
+                        # iter_calls
+                        endpoint, values = _rule
                     url = url_for(endpoint, **values)  # 构造url
                     assert url.startswith(base_url_path), (
                         'url_for returned an URL %r not starting with '
@@ -126,28 +140,15 @@ class Gen(object):
                         url = url.decode(url_encoding)
                     yield url, endpoint
 
-    def _build_file(self, url):
+    def wsgi_resquest(self, url):
         """
-        simulation request on WSGI level and
-        write response to static files
+        simulation request on WSGI level
         """
         gen_client = self.app.test_client()
         base_url = self.app.config['GEN_BASE_URL']
         with self.url_fors:
-            # find all app url_for and build url
-            response = gen_client.get(url, follow_redirects=True,
+            response = yield gen_client.get(url, follow_redirects=True,
                                       base_url=base_url)
-        destination_path = self.urlpath_to_filepath(url)
-        filename = os.path.join(self.root_path, *destination_path.split('/'))
-        dirname = os.path.dirname(filename)
-        if not os.path.isdir(dirname):
-            os.makedirs(dirname)
-        static_data = response.data
-        with open(filename, 'wb') as fd:
-            fd.write(static_data)
-        print "build file {file}".format(file=filename)
-        # response.close()
-        return filename
 
     def urlpath_to_filepath(self, path):
         """
@@ -171,17 +172,18 @@ class UrlForGen(object):
         self.app = app
         self.calls = collections.deque()
         self._enabled = False
-        self._lock = Lock()  # 上锁啦, 哈哈, 有意思
+        self._lock = Lock()
 
         def gens(endpoint, values):
             """
-            ⚡️ 通过flask url processors获取所有url_for调用信息
+            url processors can automatically inject values into a call for url_for() automatically.
             http://flask.pocoo.org/docs/0.11/patterns/urlprocessors/
             """
-            if self._enabled:
+            if self._enabled \
+            and ((endpoint, values) not in self.calls):
                 self.calls.append((endpoint, values.copy()))
-        self.app.url_default_functions.setdefault(None, []).insert(0, gens)
         # {None: [<function gens at xxxx>]}
+        self.app.url_default_functions.setdefault(None, []).insert(0, gens)
 
     def __enter__(self):
         self._lock.acquire()

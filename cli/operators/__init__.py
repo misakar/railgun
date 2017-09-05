@@ -6,7 +6,7 @@
     private operator functions support cli tools
 
     :License :: MIT
-    :Copyright @neo1218 2016
+    :Copyright @neo1218 2016 @oaoouo
 """
 
 from _mkdir_p import _mkdir_p
