@@ -87,3 +87,7 @@ def tags():
 @app.route('/about/')
 def about():
     return render_template('about.html', **dict(user_config_dict, **api_dict))
+
+@app.route('/pygments.css')
+def pygments_css():
+    return pygments_style_defs('colorful'), 200, {'Content-Type': 'text/css'}
