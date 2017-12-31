@@ -6,7 +6,7 @@
     > static site generator
 
     :License: MIT
-    :Copyright: @oaoouo
+    :Copyright: @misakar
 """
 
 import re
@@ -33,9 +33,9 @@ setup(
     name='railgun_cli',
     version=version,
     packages=find_packages(),
-    url='https://github.com/oaoouo/railgun',
+    url='https://github.com/misakar/railgun',
     license='MIT',
-    author='oaoouo',
+    author='misakar',
     author_email='oaoouo@yeah.net',
     description='static site generator',
     long_description=__doc__,

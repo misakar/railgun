@@ -72,7 +72,7 @@ enjoy writing :)
 ### Install from git
 
 ```shell
-$ git clone https://github.com/oaoouo/railgun/ railgun
+$ git clone https://github.com/misakar/railgun/ railgun
 $ cd railgun
 $ pip install --editable .
 ```
@@ -80,7 +80,7 @@ $ pip install --editable .
 ## Test
 
 ```shell
-$ git clone https://github.com/oaoouo/railgun/ railgun
+$ git clone https://github.com/misakar/railgun/ railgun
 $ cd railgun
 $ pip install --editable .
 $ py.test -s

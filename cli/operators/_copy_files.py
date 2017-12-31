@@ -6,7 +6,7 @@
     copy files from given path to {harbor} folder
 
     :License :: MIT
-    :Copyright @neo1218 2016 @oaoouo
+    :Copyright @misakar
 """
 
 import os

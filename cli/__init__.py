@@ -6,7 +6,7 @@
     railgun command line tool
 
     :License: MIT
-    :Copyright: @neo1218 @oaoouo
+    :Copyright: @misakar
 """
 
 __version__ = '0.1.3'
