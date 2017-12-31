@@ -3,10 +3,10 @@
     railgun~setup
     `````````````
 
-    > py static site generator
+    > static site generator
 
     :License: MIT
-    :Copyright: @neo1218
+    :Copyright: @oaoouo
 """
 
 import re
@@ -30,14 +30,14 @@ entry_points = {
 
 # setup
 setup(
-    name='railgun-cli',
+    name='railgun_cli',
     version=version,
     packages=find_packages(),
-    url='https://github.com/neo1218/railgun',
+    url='https://github.com/oaoouo/railgun',
     license='MIT',
-    author='neo1218',
-    author_email='neo1218@yeah.net',
-    description='py static site generator, simple and fast',
+    author='oaoouo',
+    author_email='oaoouo@yeah.net',
+    description='static site generator',
     long_description=__doc__,
     zip_safe=False,
     include_package_data=True,
@@ -46,6 +46,7 @@ setup(
         'click',
         'Flask',
         'Flask-Flatpages',
+        'Flask-Script',
     ],
     entry_points=entry_points,
     classifiers=[

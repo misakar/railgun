@@ -1,7 +1,9 @@
 #coding: utf-8
 
 import os
+import sys
 import shutil
+import requests
 
 
 root_path = os.getcwd()
@@ -16,8 +18,13 @@ build_tree = ['./blog/',
               './blog/app/themes/cat/static', './blog/app/themes/cat/templates', 
               './blog/app/themes/cat/static/img', './blog/app/themes/cat/static/css', './blog/app/themes/cat/static/js']
 
+def clean_test_env():
+    shutil.rmtree(blog_path)
+    print("\n>> clean test environment\n")
+
 def test_railgun_init():
-    # assert test_env == "/home/neo1218/oaoouo/railgun/tests/"
+    if os.path.isdir(blog_path):
+        shutil.rmtree(blog_path)
     os.chdir(test_env)
     print("\n>> build test environment\n")
     os.popen('railgun init blog')
@@ -32,10 +39,24 @@ def test_railgun_new():
     os.popen('railgun new test')
     new_blog_path = os.path.join(blog_path, 'app/pages/test.md')
     assert os.path.isfile(new_blog_path) == True
-    clean_test_env()
-    print("\n>> clean test environment\n")
 
-def clean_test_env():
-    os.chdir(test_env)
-    blog_path = os.path.join(test_env, './blog')
-    shutil.rmtree(blog_path)
+def test_railgun_build():
+    os.chdir(blog_path)
+    os.popen('railgun build')
+    build_path = os.path.join(blog_path, 'app/build')
+    build_test_path = os.path.join(build_path, 'test/')
+    assert os.path.isdir(build_test_path)
+
+# def test_railgun_server():
+#     os.chdir(blog_path)
+#     os.popen('railgun server')
+#     r = requests.get('http://127.0.0.1:5050/')
+#     assert r.status == '200'
+#     clean_test_env()
+
+def test_railgun_upload():
+    os.chdir(blog_path)
+    os.popen('railgun upload')
+    harbor_path = os.path.join(blog_path, '.harbor/.git')
+    assert os.path.isdir(harbor_path) 
+    clean_test_env()
