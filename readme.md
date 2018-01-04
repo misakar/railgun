@@ -92,38 +92,37 @@ $ py.test -s
 
 ## Change Logs
 
-
 ### 20180104
 
-+ add code highlight
+add code highlight
 
-<detail>
+<details>
 
 ### 20171231
 
-+ back
+back
 
 ### 20170910
 
-+ add blog :)
+add blog :)
 
 ### 20170907
 
-+ add tests!
+add tests!
 
 ### 20170901
 
-+ speed up! generate 200 files in just 5s :)
+speed up! generate 200 files in just 5s :)
 
 ### 20170831
 
-+ fix bug :(
+fix bug :(
 
 ### 20170830
 
-+ bye bye neo1218 :) new life :(
+continuse
 
-</detail>
+</details>
 
 ## ToDo
 
@@ -135,7 +134,6 @@ $ py.test -s
 + [ ] reverse generation
 
 ## CopyRight
-
 
 **MIT 2018@misakar** <br/>
 
