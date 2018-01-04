@@ -9,6 +9,7 @@
 from . import app
 from . import pages
 from flask import render_template, request
+from flask_flatpages import pygments_style_defs
 from .paginate import _Pagination
 
 
@@ -90,4 +91,4 @@ def about():
 
 @app.route('/pygments.css')
 def pygments_css():
-    return pygments_style_defs('colorful'), 200, {'Content-Type': 'text/css'}
+    return pygments_style_defs(app.config.get('HIGHLIGHT_THEME')), 200, {'Content-Type': 'text/css'}

@@ -8,27 +8,37 @@ tags: ['railgun', 'use']
 
 ## Step1: Initialize a blog
 
-    $ railgun init blog
+```shell
+$ railgun init blog
+```
 
 ## Step2: Config
 
-    $ cd blog
-    $ vim config.py
+```shell
+$ cd blog
+$ vim config.py
+```
 
 don't forget to change **default config class**
 
-    config = {
-        'default': MyConfig
-    }
+```python
+config = {
+    'default': MyConfig
+}
+```
 
 ## Step3: Writing
 
-    $ cd blog
-    $ railgun new newblog
+```python
+$ cd blog
+$ railgun new newblog
+```
 
 then
 
-    $ vim app/pages/newblog.md
+```python
+$ vim app/pages/newblog.md
+```
 
 the default article template show below:
 
@@ -38,18 +48,24 @@ the default article template show below:
 
 the default format for the blog is ``markdown``, you can change it in the config.py file
 
-    class Config(object):
-        # ......
-        FLATPAGES_EXTENSION = '.md'
+```python
+class Config(object):
+    # ......
+    FLATPAGES_EXTENSION = '.md'
+```
 
 ## Step4: Preview
 
-    $ railgun server
+```shell
+$ railgun server
+```
 
 ## Step5: Build and Deploy
 
-    $ railgun build
-    $ railgun upload
+```shell
+$ railgun build
+$ railgun upload
+```
 
 done! <br/>
 enjoy writing :)

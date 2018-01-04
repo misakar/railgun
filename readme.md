@@ -44,7 +44,7 @@ date: %Y-%m-%d %H:%M:%S
 tags: ['tag1', 'tag2']
 ```
 
-the default format for the blog is ``markdown``, you can change it in the config.py file
+the default format for the blog is ``[markdown](https://guides.github.com/features/mastering-markdown/)``, you can change it in the config.py file
 
 ```python
 class Config(object):
@@ -120,6 +120,7 @@ $ py.test -s
 
 + [x] speed up
 + [x] tests
++ [ ] code high light
 + [ ] logging system
 + [ ] theme system
 + [ ] reverse generation

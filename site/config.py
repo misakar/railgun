@@ -25,6 +25,8 @@ class ExampleConfig(Config):
     # [article setting]
     ARTICLE_TYPE = FLATPAGES_EXTENSION = '.md'  # default is .md
     ARTICLE_PER_PAGE = 10
+    # code highlight
+    HIGHLIGHT_THEME = 'colorful'  # more theme on https://help.farbox.com/pygments.html
 
     # [owner info]
     GITHUB_URL = "https://github.com/oaoouo"
@@ -50,6 +52,8 @@ class MyConfig(Config):
     # [article setting]
     ARTICLE_TYPE = FLATPAGES_EXTENSION = ".md"
     ARTICLE_PER_PAGE = 10
+    # code highlight
+    HIGHLIGHT_THEME = 'colorful'  # more theme on https://help.farbox.com/pygments.html
 
     # [owner info]
     GITHUB_URL = ""
