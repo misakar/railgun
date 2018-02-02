@@ -88,7 +88,7 @@ $ py.test -s
 
 ## More details of railgun
 
-+ [一起写一个静态博客生成器]()
++ [一起写一个静态博客生成器](http://www.misakar.me/static-generator/)
 
 ## Change Logs
 
