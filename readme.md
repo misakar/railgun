@@ -132,6 +132,7 @@ continuse
 + [ ] logging system
 + [ ] theme system
 + [ ] reverse generation
++ [ ] article pending state
 
 ## CopyRight
 
